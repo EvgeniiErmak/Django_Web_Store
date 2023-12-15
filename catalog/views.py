@@ -20,3 +20,5 @@ def submit_feedback(request):
         return redirect('catalog:contacts')
     else:
         return redirect('catalog:contacts')
+
+
