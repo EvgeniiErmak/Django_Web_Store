@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
 def home(request):
@@ -6,17 +7,16 @@ def home(request):
 
 
 def contacts(request):
-    if request.method == 'POST':
-        # Обработка данных формы обратной связи
-        pass
     return render(request, 'contacts.html')
 
 
 def submit_feedback(request):
     if request.method == 'POST':
-        # Обработка данных формы обратной связи
-        # Здесь можно использовать Django Forms для более удобной обработки формы
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+        messages.success(request, 'Ваше сообщение успешно отправлено!')
+        print(f'Имя: {name}\nТелефон: {phone}\nСообщение: {message}')
         return redirect('catalog:contacts')
     else:
-        # Вернуть что-то в случае GET-запроса (если это неожиданно)
         return redirect('catalog:contacts')
