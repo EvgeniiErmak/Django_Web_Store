@@ -88,6 +88,15 @@
         </div>
     </div>
 
+    <div class="mt-5">
+        <h3>Список контактов</h3>
+        <ul>
+            {% for contact in contacts %}
+                <li>{{ contact.name }} - {{ contact.phone }} - {{ contact.message }} - {{ contact.created_at }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">
@@ -124,5 +133,3 @@
 </body>
 
 </html>
-
-
