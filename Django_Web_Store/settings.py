@@ -76,8 +76,16 @@ WSGI_APPLICATION = 'Django_Web_Store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Django_Web_Store_base',
+        'USER': 'postgres',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=public',
+            'client_encoding': 'UTF8',  # Используйте 'UTF8' вместо 'utf-8'
+        },
     }
 }
 
