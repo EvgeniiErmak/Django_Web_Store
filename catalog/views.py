@@ -38,3 +38,6 @@ def submit_feedback(request):
         return redirect('catalog:contacts')
 
 
+def product_detail(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    return render(request, 'product_detail.html', {'product': product})
