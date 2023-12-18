@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали продукта{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        <p>Цена: {{ product.price }}</p>
+        <!-- Другие поля товара, которые вы хотите отобразить -->
+
+        <a class="btn btn-primary" href="{% url 'catalog:home' %}">Вернуться в каталог</a>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
