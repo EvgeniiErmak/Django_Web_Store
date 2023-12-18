@@ -12,6 +12,7 @@ psycopg2-binary = "^2.9.9"
 pillow = "^10.1.0"
 ipython = "^8.18.1"
 django-debug-toolbar = "^3.2.4"
+faker = "^21.0.0"
 
 [build-system]
 requires = ["poetry-core"]
