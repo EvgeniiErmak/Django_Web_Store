@@ -1,6 +1,35 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Product, Contact
+from django.shortcuts import render, redirect
+from .forms import ProductForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+def product_list(request):
+    products = Product.objects.all()
+    paginator = Paginator(products, 10)  # По 10 продуктов на страницу
+
+    page = request.GET.get('page')
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    return render(request, 'product_list.html', {'products': products})
+
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('catalog:home')
+    else:
+        form = ProductForm()
+
+    return render(request, 'create_product.html', {'form': form})
 
 
 def home(request):
