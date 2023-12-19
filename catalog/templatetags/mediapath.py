@@ -1,6 +1,4 @@
 from django import template
-from django.templatetags.static import PrefixNode
-from django.contrib.staticfiles.storage import staticfiles_storage
 from django.conf import settings
 from django.template.base import Node
 
