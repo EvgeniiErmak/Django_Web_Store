@@ -1,18 +1,24 @@
-from .views import product_detail, create_product, product_list
-from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
+from .views import (
+    HomeView,
+    ContactsView,
+    SubmitFeedbackView,
+    ProductDetailView,
+    CreateProductView,
+    ProductListView,
+)
 
 app_name = 'catalog'
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('contacts/', views.contacts, name='contacts'),
-    path('contacts/submit/', views.submit_feedback, name='submit_feedback'),
-    path('product/<int:product_id>/', product_detail, name='product_detail'),
-    path('create_product/', create_product, name='create_product'),
-    path('products/', product_list, name='product_list'),
+    path('', HomeView.as_view(), name='home'),
+    path('contacts/', ContactsView.as_view(), name='contacts'),
+    path('contacts/submit/', SubmitFeedbackView.as_view(), name='submit_feedback'),
+    path('product/<int:product_id>/', ProductDetailView.as_view(), name='product_detail'),
+    path('create_product/', CreateProductView.as_view(), name='create_product'),
+    path('products/', ProductListView.as_view(), name='product_list'),
 ]
 
 if settings.DEBUG:
