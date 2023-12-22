@@ -7,14 +7,18 @@
 
   <ul>
     {% for post in object_list %}
-      <li>
-        <a href="{% url 'blogpost:post_detail' slug=post.slug %}">{{ post.title }}</a>
-        <span> | </span>
-        <a href="{% url 'blogpost:post_edit' slug=post.slug %}" class="btn btn-outline-primary btn-sm">Редактировать</a>
-        <span> | </span>
-        <a href="{% url 'blogpost:post_delete' slug=post.slug %}" class="btn btn-outline-danger btn-sm">Удалить</a>
-      </li>
-      <br>
+      {% if post.is_published %}
+        <li>
+          <a href="{% url 'blogpost:post_detail' slug=post.slug %}">{{ post.title }}</a>
+          <span> | </span>
+          <a href="{% url 'blogpost:post_edit' slug=post.slug %}" class="btn btn-outline-primary btn-sm">Редактировать</a>
+          <span> | </span>
+          <a href="{% url 'blogpost:post_delete' slug=post.slug %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+          <span> | </span>
+          <a href="{% url 'blogpost:post_detail' slug=post.slug %}" class="btn btn-outline-secondary btn-sm">Подробнее</a>
+        </li>
+        <br>
+      {% endif %}
     {% endfor %}
   </ul>
   <br>
