@@ -143,3 +143,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Настройки для работы с электронной почтой.
+# Обратите внимание, что вы должны использовать свой логин, пароль и адрес электронной почты Яндекса.
+# Теперь, когда статья достигнет 100 просмотров, вы получите письмо на указанный вами адрес электронной почты.
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ваш_логин@yandex.ru'
+EMAIL_HOST_PASSWORD = 'ваш_пароль'

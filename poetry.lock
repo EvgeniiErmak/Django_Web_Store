@@ -431,6 +431,17 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "secure-smtplib"
+version = "0.1.1"
+description = "Secure SMTP subclasses for Python 2"
+optional = false
+python-versions = "*"
+files = [
+    {file = "secure-smtplib-0.1.1.tar.gz", hash = "sha256:3d4903f6612626ccd9b77ef05313cb3c3952a59a4d756cda2377b272fabad8b9"},
+    {file = "secure_smtplib-0.1.1-py2.py3-none-any.whl", hash = "sha256:645ea0a341f306fa3307c8fe1169765c417ff363db9946fa69f3669a9b718069"},
+]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -516,4 +527,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c3ee8743e575dfebeb87221599a081de42800297b0588b618606b33c7451adbb"
+content-hash = "228615751efbbd6419e26f203820504a8a3f38291b45dfe77aac287ef30bb2cb"
