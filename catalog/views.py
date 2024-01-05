@@ -1,15 +1,22 @@
 from django.contrib import messages
-from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Product, Contact
+from .models import Product, Contact, Version
 from .forms import ProductForm
+from django.shortcuts import render
+from django.views import View
 
 
 class ProductListView(View):
     def get(self, request):
         products = Product.objects.all()
-        paginator = Paginator(products, 5)  # По 5 продуктов на страницу
+
+        # Добавляем информацию об активной версии для каждого продукта
+        for product in products:
+            active_version = Version.objects.filter(product=product, is_active=True).first()
+            product.active_version = active_version
+
+        paginator = Paginator(products, 4)  # По 4 продуктов на страницу
         page = request.GET.get('page')
         try:
             products = paginator.page(page)
@@ -17,6 +24,7 @@ class ProductListView(View):
             products = paginator.page(1)
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
+
         return render(request, 'product_list.html', {'products': products})
 
 
