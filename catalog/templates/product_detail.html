@@ -1,21 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Детали продукта - {{ product.name }}{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>{{ product.name }}</h1>
         <p>{{ product.description }}</p>
-        <p>Цена: {{ product.price }}</p>
-        <img src="{% mediapath product.image %}" alt="{{ product.name }}" />
-        <br>
-        <!-- Другие поля товара, которые вы хотите отобразить -->
+        <!-- Остальные поля продукта -->
 
-        <br>
-        <a class="btn btn-primary" href="{% url 'catalog:home' %}">Вернуться в каталог</a>
+        <div class="buttons mt-3">
+            <a href="{% url 'catalog:edit_product' product_id=product.id %}" class="btn btn-outline-warning">Редактировать</a>
+            <a href="{% url 'catalog:delete_product' product_id=product.id %}" class="btn btn-outline-danger">Удалить</a>
+        </div>
+
+        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary mt-3">Вернуться в список</a>
+        <a href="{% url 'catalog:home' %}" class="btn btn-secondary mt-3">Вернуться в каталог</a>
     </div>
-{% endblock %}
-
-{% block scripts %}
-<script src="/static/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

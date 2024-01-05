@@ -10,8 +10,13 @@
                 <h2>{{ product.name }}</h2>
                 <p>{{ product.description }}</p>
                 <!-- Остальные поля продукта -->
+
+                <a href="{% url 'catalog:product_detail' product_id=product.id %}" class="btn btn-outline-primary">Подробнее</a>
+                <a href="{% url 'catalog:edit_product' product_id=product.id %}" class="btn btn-outline-warning">Редактировать</a>
+                <a href="{% url 'catalog:delete_product' product_id=product.id %}" class="btn btn-outline-danger">Удалить</a>
             </div>
         {% endfor %}
+    <br>
 
         <div class="pagination">
             <span class="step-links">
