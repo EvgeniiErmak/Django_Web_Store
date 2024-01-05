@@ -1,22 +1,25 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, Contact, Version
-from .forms import ProductForm
-from django.shortcuts import render
+from .forms import ProductForm, VersionForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import View
 
 
 class ProductListView(View):
     def get(self, request):
-        products = Product.objects.all()
+        # Упорядочиваем продукты по id перед пагинацией
+        products = Product.objects.all().order_by('id')
 
         # Добавляем информацию об активной версии для каждого продукта
         for product in products:
             active_version = Version.objects.filter(product=product, is_active=True).first()
             product.active_version = active_version
 
-        paginator = Paginator(products, 4)  # По 4 продуктов на страницу
+        # Форма для добавления новой версии
+        version_form = VersionForm()
+
+        paginator = Paginator(products, 4)  # По 4 продукта на страницу
         page = request.GET.get('page')
         try:
             products = paginator.page(page)
@@ -25,21 +28,27 @@ class ProductListView(View):
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
 
-        return render(request, 'product_list.html', {'products': products})
+        return render(request, 'product_list.html', {'products': products, 'version_form': version_form})
 
 
 class CreateProductView(View):
     def get(self, request):
         form = ProductForm()
-        return render(request, 'create_product.html', {'form': form})
+        version_form = VersionForm()
+        return render(request, 'create_product.html', {'form': form, 'version_form': version_form})
 
     def post(self, request):
         form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Продукт успешно создан.')
-            return redirect('catalog:home')
-        return render(request, 'create_product.html', {'form': form})
+        version_form = VersionForm(request.POST)
+
+        if form.is_valid() and version_form.is_valid():
+            product = form.save()
+            version = version_form.save(commit=False)
+            version.product = product
+            version.save()
+            return redirect('catalog:product_detail', product_id=product.id)
+
+        return render(request, 'create_product.html', {'form': form, 'version_form': version_form})
 
 
 class EditProductView(View):
@@ -95,5 +104,41 @@ class SubmitFeedbackView(View):
 
 class ProductDetailView(View):
     def get(self, request, product_id):
-        product = get_object_or_404(Product, pk=product_id)
-        return render(request, 'product_detail.html', {'product': product})
+        product = Product.objects.get(pk=product_id)
+        versions = Version.objects.filter(product=product)
+        version_form = VersionForm()
+
+        return render(request, 'product_detail.html', {'product': product, 'versions': versions, 'version_form': version_form})
+
+    def post(self, request, product_id):
+        product = Product.objects.get(pk=product_id)
+        versions = Version.objects.filter(product=product)
+        version_form = VersionForm(request.POST)
+
+        if version_form.is_valid():
+            version = version_form.save(commit=False)
+            version.product = product
+            version.save()
+            return redirect('catalog:product_detail', product_id=product_id)
+
+        return render(request, 'product_detail.html', {'product': product, 'versions': versions, 'version_form': version_form})
+
+
+class AddVersionView(View):
+    def post(self, request):
+        version_form = VersionForm(request.POST)
+
+        if version_form.is_valid():
+            product_id = request.POST.get('product_id')  # Добавьте поле product_id в форму
+            product = Product.objects.get(pk=product_id)
+
+            # Деактивируем текущую активную версию продукта
+            Version.objects.filter(product=product, is_active=True).update(is_active=False)
+
+            # Создаем новую версию и делаем ее активной
+            version = version_form.save(commit=False)
+            version.product = product
+            version.is_active = True
+            version.save()
+
+        return redirect('catalog:product_list')
