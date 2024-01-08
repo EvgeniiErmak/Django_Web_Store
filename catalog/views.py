@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Contact, Version
 from .forms import ProductForm, VersionForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.decorators.http import require_POST
 from django.views import View
 
 
@@ -31,24 +34,37 @@ class ProductListView(View):
         return render(request, 'product_list.html', {'products': products, 'version_form': version_form})
 
 
+@method_decorator(login_required, name='dispatch')
 class CreateProductView(View):
+    template_name = 'create_product.html'
+
     def get(self, request):
         form = ProductForm()
         version_form = VersionForm()
-        return render(request, 'create_product.html', {'form': form, 'version_form': version_form})
+        return render(request, self.template_name, {'form': form, 'version_form': version_form})
 
+    @require_POST
     def post(self, request):
         form = ProductForm(request.POST, request.FILES)
         version_form = VersionForm(request.POST)
 
         if form.is_valid() and version_form.is_valid():
-            product = form.save()
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+
             version = version_form.save(commit=False)
             version.product = product
             version.save()
+
             return redirect('catalog:product_detail', product_id=product.id)
 
-        return render(request, 'create_product.html', {'form': form, 'version_form': version_form})
+        return render(request, self.template_name, {'form': form, 'version_form': version_form})
+
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('users:login')  # Измените 'login' на ваш URL для страницы входа
+        return super().dispatch(*args, **kwargs)
 
 
 class EditProductView(View):

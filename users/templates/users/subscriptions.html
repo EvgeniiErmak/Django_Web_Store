@@ -1,0 +1,17 @@
+<!-- subscriptions.html -->
+{% extends 'base.html' %}
+
+{% block title %}Мои рассылки{% endblock %}
+
+{% block content %}
+  <h2>Мои рассылки</h2>
+  {% if subscriptions %}
+    <ul>
+      {% for subscription in subscriptions %}
+        <li>{{ subscription.name }} - {{ subscription.description }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>У вас пока нет созданных рассылок.</p>
+  {% endif %}
+{% endblock %}

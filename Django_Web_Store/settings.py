@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_apscheduler',
     'catalog',
     'blogpost',
     'crispy_forms',
+    'users'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -158,3 +160,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ваш_логин@yandex.ru'
 EMAIL_HOST_PASSWORD = 'ваш_пароль'
+
+LOGIN_URL = 'users:login'
+LOGOUT_URL = 'users:logout'
+LOGIN_REDIRECT_URL = 'catalog:home'
