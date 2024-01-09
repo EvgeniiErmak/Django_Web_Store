@@ -2,18 +2,11 @@
 
 {% block content %}
   <h2>Вход</h2>
-  {% if form.errors %}
-    <p style="color: red;">Ошибка входа. Пожалуйста, проверьте ваш логин и пароль.</p>
-  {% endif %}
   <form method="post" action="{% url 'users:login' %}">
     {% csrf_token %}
-    {{ form.username.label_tag }} {{ form.username }}
-    {{ form.password.label_tag }} {{ form.password }}
+    {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Войти</button>
   </form>
-
-  <!-- Кнопка восстановления пароля -->
-  <p><a href="{% url 'users:forgot_password' %}">Забыли пароль?</a></p>
 
   <!-- Кнопка выхода -->
   {% if user.is_authenticated %}
