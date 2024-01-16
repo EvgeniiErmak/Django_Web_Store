@@ -737,6 +737,16 @@ mysql = ["mysql-connector-python"]
 postgresql = ["psycopg2"]
 
 [[package]]
+name = "pytils"
+version = "0.4.1"
+description = "Russian-specific string utils"
+optional = false
+python-versions = "^3.7"
+files = [
+    {file = "pytils-0.4.1.tar.gz", hash = "sha256:aa109b1bc0ec4bdb7c9768520110348d8aeb0706600e6cf641272e6850e26eab"},
+]
+
+[[package]]
 name = "pytz"
 version = "2022.5"
 description = "World timezone definitions, modern and historical"
@@ -952,4 +962,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "f4f1ad9e8fa3dc34c5ee200f49dc229f8c1b93c9b7d5de479d8b1248de6f1436"
+content-hash = "e3a2958c0d0b9973bc909e60eb8c504d4f60a027d4d451b190e9b1ae94954b2b"
