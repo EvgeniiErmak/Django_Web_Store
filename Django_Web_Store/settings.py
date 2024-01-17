@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'blogpost',
     'catalog',
+    'users'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -129,6 +131,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+DEFAULT_CHARSET = 'utf-8'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -160,3 +163,15 @@ EMAIL_HOST_USER = 'ew.ermack2015@yandex.ru'
 EMAIL_HOST_PASSWORD = 'jzgxnpuoxukrxxez'
 DEFAULT_FROM_EMAIL = 'ew.ermack2015@yandex.ru'
 SERVER_EMAIL = 'ew.ermack2015@yandex.ru'
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
