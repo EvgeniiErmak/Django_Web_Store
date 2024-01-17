@@ -1,3 +1,4 @@
+# catalog/forms.py
 from .models import Product
 from django import forms
 from crispy_forms.helper import FormHelper
