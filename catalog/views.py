@@ -143,3 +143,4 @@ class AddVersionView(View):
             version.save()
 
         return redirect('catalog:product_list')
+
