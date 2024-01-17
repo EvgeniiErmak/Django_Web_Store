@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Edit Product</h2>
+  <h2>Редактирование товара</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save Changes</button>
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
   </form>
-  <a href="{% url 'catalog:product_detail' product_id=product.id %}">Cancel</a>
+    <div class="mb-3"></div>
+  <a href="{% url 'catalog:product_detail' product_id=product.id %}" class="btn btn-secondary">Отмена</a>
 {% endblock %}
