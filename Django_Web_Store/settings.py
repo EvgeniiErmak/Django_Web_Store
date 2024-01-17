@@ -167,8 +167,9 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 AUTH_USER_MODEL = 'users.User'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_URL = 'users:login'
+LOGOUT_URL = 'users:logout'
+LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
 
