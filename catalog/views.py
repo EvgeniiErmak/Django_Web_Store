@@ -1,9 +1,9 @@
 # catalog/views.py
-from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Contact, Version
 from .forms import ProductForm, VersionForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 from django.views import View
 
 
