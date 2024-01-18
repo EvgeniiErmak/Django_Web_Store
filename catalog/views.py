@@ -44,6 +44,8 @@ class CreateProductView(View):
 
         if form.is_valid() and version_form.is_valid():
             product = form.save()
+            product.user = self.request.user
+            product.save()
             version = version_form.save(commit=False)
             version.product = product
             version.save()
