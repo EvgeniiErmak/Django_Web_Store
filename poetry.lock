@@ -61,6 +61,16 @@ astroid = ["astroid (>=1,<2)", "astroid (>=2,<4)"]
 test = ["astroid (>=1,<2)", "astroid (>=2,<4)", "pytest"]
 
 [[package]]
+name = "bootstrap4"
+version = "0.1.0"
+description = "Bootstrap 4, packaged for Python."
+optional = false
+python-versions = "*"
+files = [
+    {file = "bootstrap4-0.1.0.tar.gz", hash = "sha256:f768f9a2760c4765682a7cd26f2d1662e8f82d5e773e325c386709abeb2dd3ae"},
+]
+
+[[package]]
 name = "certifi"
 version = "2022.9.24"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -959,4 +969,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "2ae34f6eadb27b51888ff136507241a9e43c37ee230a63f1e6621ee01fc133bb"
+content-hash = "2885e4403d53706a4d950d51a46ce7cafd83ddded2d5c70257c1255c54883864"
