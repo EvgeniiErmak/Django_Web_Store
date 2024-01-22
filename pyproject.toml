@@ -37,6 +37,7 @@ urllib3 = "1.26.12"
 asgiref = "^3.7.2"
 pytils = "^0.4.1"
 bootstrap4 = "^0.1.0"
+django-autoslug = "^1.9.9"
 
 [build-system]
 requires = ["poetry-core"]
