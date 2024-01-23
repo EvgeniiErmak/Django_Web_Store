@@ -1,3 +1,4 @@
+# users/urls.py
 from users.views import RegisterView, verify_view, EmailVerifyView
 from .views import ProfileView, ProfileUpdateView
 from django.urls import path, reverse_lazy

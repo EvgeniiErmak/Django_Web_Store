@@ -1,5 +1,4 @@
 # blogpost/models.py
-from autoslug import AutoSlugField
 from django.utils.text import slugify
 from django.urls import reverse
 from django.db import models
@@ -7,7 +6,6 @@ from django.db import models
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=555)
-    # slug = models.SlugField(unique=True, blank=True)
     slug = models.SlugField(unique=True, blank=True, max_length=555)  # Увеличиваем max_length
     content = models.TextField()
     preview_image = models.ImageField(upload_to='blogpost/images/', blank=True, null=True)
