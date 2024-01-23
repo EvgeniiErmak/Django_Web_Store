@@ -32,6 +32,12 @@ class Version(models.Model):
 
 
 class Product(models.Model):
+    PUBLISH_CHOICES = [
+        ('draft', 'Черновик'),
+        ('published', 'Опубликован'),
+        ('archived', 'Архивирован'),
+    ]
+
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='product_images/', blank=True, null=True)
@@ -40,6 +46,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, verbose_name='пользователь')
+    publish_status = models.CharField(max_length=20, choices=PUBLISH_CHOICES, default='draft', verbose_name='Статус публикации')
 
     def __str__(self):
         return self.name

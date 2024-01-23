@@ -4,8 +4,8 @@ from .models import Category, Product
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'category')
-    list_filter = ('category',)
+    list_display = ('id', 'name', 'price', 'category', 'publish_status')  # Добавляем столбец с статусом публикации
+    list_filter = ('category', 'publish_status')  # Добавляем фильтр по статусу публикации
     search_fields = ('name', 'description')
 
 
