@@ -48,5 +48,11 @@ class Product(models.Model):
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, verbose_name='пользователь')
     publish_status = models.CharField(max_length=20, choices=PUBLISH_CHOICES, default='draft', verbose_name='Статус публикации')
 
+    def is_owner(self, user):
+        """
+        Метод проверки, является ли указанный пользователь владельцем продукта.
+        """
+        return self.user == user
+
     def __str__(self):
         return self.name

@@ -9,7 +9,6 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <!-- Поля для создания продукта с использованием стиля из product_detail.html -->
             <div class="mb-3">
                 <label for="id_name" class="form-label">Название продукта:</label>
                 {{ form.name }}
@@ -31,7 +30,7 @@
                 {{ form.price }}
             </div>
 
-            <!-- Поля для добавления версии продукта -->
+            <!-- Добавление полей для версии продукта -->
             <div class="form-group mt-3">
                 <label for="id_version_number">Номер версии:</label>
                 <input type="text" name="version_number" id="id_version_number" class="form-control" size="5" required>

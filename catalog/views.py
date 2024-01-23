@@ -57,15 +57,27 @@ class CreateProductView(View):
 class EditProductView(View):
     def get(self, request, product_id):
         product = get_object_or_404(Product, pk=product_id)
+
+        # Проверяем, является ли текущий пользователь владельцем продукта
+        if not product.is_owner(request.user):
+            messages.error(request, 'У вас нет прав для редактирования этого продукта.')
+            return redirect('catalog:product_list')
+
         form = ProductForm(instance=product)
         return render(request, 'edit_product.html', {'form': form, 'product': product})
 
     def post(self, request, product_id):
         product = get_object_or_404(Product, pk=product_id)
+
+        # Проверяем, является ли текущий пользователь владельцем продукта
+        if not product.is_owner(request.user):
+            messages.error(request, 'У вас нет прав для редактирования этого продукта.')
+            return redirect('catalog:product_list')
+
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Продукт успешно отредактирован.')
+            messages.error(request, 'Продукт успешно отредактирован.')  # Здесь изменено
             return redirect('catalog:product_detail', product_id=product_id)
         return render(request, 'edit_product.html', {'form': form, 'product': product})
 
