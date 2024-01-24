@@ -5,6 +5,7 @@ from .models import Product, Contact, Version
 from .forms import ProductForm, VersionForm
 from django.contrib import messages
 from django.views import View
+from django.core.cache import cache
 
 
 class ProductListView(View):
@@ -119,7 +120,13 @@ class SubmitFeedbackView(View):
 
 class ProductDetailView(View):
     def get(self, request, product_id):
-        product = Product.objects.get(pk=product_id)
+        product = cache.get(f'product_{product_id}')
+
+        if not product:
+            # Если продукт не найден в кеше, получаем его из базы данных и кешируем
+            product = Product.objects.get(pk=product_id)
+            cache.set(f'product_{product_id}', product)
+
         versions = Version.objects.filter(product=product)
         version_form = VersionForm()
 
