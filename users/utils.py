@@ -13,7 +13,9 @@ def register_confirm(request, user):
         "token": user.user_token,
     }
 
-    message = f'http://{current_site}/users/verify_email/{context["uid"]}/{context["token"]}/'
+    confirmation_link = f'http://{current_site.domain}/users/verify_email/{context["uid"]}/{context["token"]}/'
+    message = f'Поздравляем! Вы успешно зарегистрированы! Подтвердите адрес электронной почты, пройдя по ссылке:\n\n{confirmation_link}'
+
     data = {
         'current_site': current_site,
         'context': context,
