@@ -40,6 +40,7 @@ bootstrap4 = "^0.1.0"
 django-autoslug = "^1.9.9"
 django-redis = "^5.4.0"
 python-decouple = "^3.8"
+channels-redis = "^4.2.0"
 
 [build-system]
 requires = ["poetry-core"]
