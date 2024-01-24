@@ -32,6 +32,12 @@ class Version(models.Model):
 
 
 class Product(models.Model):
+    MODERATION_CHOICES = [
+        ('pending', 'На модерации'),
+        ('approved', 'Одобрено'),
+        ('rejected', 'Отклонено'),
+    ]
+
     PUBLISH_CHOICES = [
         ('draft', 'Черновик'),
         ('published', 'Опубликован'),
@@ -47,11 +53,9 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE, verbose_name='пользователь')
     publish_status = models.CharField(max_length=20, choices=PUBLISH_CHOICES, default='draft', verbose_name='Статус публикации')
+    moderation_status = models.CharField(max_length=20, choices=MODERATION_CHOICES, default='pending', verbose_name='Статус модерации')
 
     def is_owner(self, user):
-        """
-        Метод проверки, является ли указанный пользователь владельцем продукта.
-        """
         return self.user == user
 
     def __str__(self):
